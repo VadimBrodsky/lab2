@@ -5,18 +5,20 @@ import LotsOfGreetings from './Greeting';
 import LotsOfBlinks from './Blink';
 import LotsOfStyles from './LotsofStyles';
 import FixedDimensionsBasics from './FixedDimensionsBasics';
+import FlexDimensionsBasics from './FlexDimensionsBasics';
 
 export default class HelloWorldApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Hello React Native!</Text>
-        <Bananas />
-        <LotsOfGreetings />
-        <LotsOfBlinks />
-        <LotsOfStyles />
-        <FixedDimensionsBasics />
-      </View>
+      // <View style={styles.container}>
+      //   <Text>Hello React Native!</Text>
+      //   <Bananas />
+      //   <LotsOfGreetings />
+      //   <LotsOfBlinks />
+      //   <LotsOfStyles />
+      //   <FixedDimensionsBasics />
+      // </View>
+      <FlexDimensionsBasics />
     );
   }
 }

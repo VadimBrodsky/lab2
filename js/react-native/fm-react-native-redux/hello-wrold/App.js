@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Bananas from './Bananas';
 import LotsOfGreetings from './Greeting';
+import LotsOfBlinks from './Blink';
 
 export default class HelloWorldApp extends Component {
   render() {
@@ -10,6 +11,7 @@ export default class HelloWorldApp extends Component {
         <Text>Hello React Native!</Text>
         <Bananas />
         <LotsOfGreetings />
+        <LotsOfBlinks />
       </View>
     );
   }

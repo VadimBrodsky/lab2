@@ -7,6 +7,7 @@ import LotsOfStyles from './LotsofStyles';
 import FixedDimensionsBasics from './FixedDimensionsBasics';
 import FlexDimensionsBasics from './FlexDimensionsBasics';
 import FlexDirectionBasics from './FlexDirectionBasics';
+import JustifyContentBasics from './JustifyContentBasics';
 
 export default class HelloWorldApp extends Component {
   render() {
@@ -20,9 +21,10 @@ export default class HelloWorldApp extends Component {
       //   <FixedDimensionsBasics />
       // </View>
       // <FlexDimensionsBasics />
-      <View>
-        <FlexDirectionBasics />
-      </View>
+      // <View>
+      //   <FlexDirectionBasics />
+      // </View>
+      <JustifyContentBasics />
     );
   }
 }

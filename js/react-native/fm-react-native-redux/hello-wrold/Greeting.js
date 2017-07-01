@@ -8,3 +8,15 @@ class Greeting extends Component {
     );
   }
 }
+
+export default class lotsOfGreetings extends Componet {
+  render() {
+    return (
+      <View style={{alignItems: 'center'}}>
+        <Greeting name='Jon' />
+        <Greeting name='Brandon' />
+        <Greeting name='Rob' />
+      </View>
+    );
+  }
+}

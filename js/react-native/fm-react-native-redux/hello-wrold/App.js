@@ -10,6 +10,7 @@ import FlexDirectionBasics from './FlexDirectionBasics';
 import JustifyContentBasics from './JustifyContentBasics';
 import AlignItemsBasics from './AlignItemsBasics';
 import PizzaTranslator from './PizzaTranslator';
+import ButtonBasics from './ButtonBasics'
 
 export default class HelloWorldApp extends Component {
   render() {
@@ -22,16 +23,22 @@ export default class HelloWorldApp extends Component {
       //   <LotsOfStyles />
       //   <FixedDimensionsBasics />
       // </View>
+
       // <FlexDimensionsBasics />
+
       // <View>
       //   <FlexDirectionBasics />
       // </View>
+
       // <JustifyContentBasics />
       // <AlignItemsBasics />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text> Pizza Translator</Text>
-        <PizzaTranslator />
-      </View>
+
+      // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      //   <Text> Pizza Translator</Text>
+      //   <PizzaTranslator />
+      // </View>
+
+      <ButtonBasics/>
     );
   }
 }

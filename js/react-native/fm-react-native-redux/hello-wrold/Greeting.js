@@ -9,7 +9,7 @@ class Greeting extends Component {
   }
 }
 
-export default class lotsOfGreetings extends Componet {
+export default class LotsOfGreetings extends Component {
   render() {
     return (
       <View style={{alignItems: 'center'}}>

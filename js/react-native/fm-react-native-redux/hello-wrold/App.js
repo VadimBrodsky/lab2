@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Bananas from './Bananas';
+import LotsOfGreetings from './Greeting';
 
 export default class HelloWorldApp extends Component {
   render() {
@@ -8,6 +9,7 @@ export default class HelloWorldApp extends Component {
       <View style={styles.container}>
         <Text>Hello React Native!</Text>
         <Bananas />
+        <LotsOfGreetings />
       </View>
     );
   }

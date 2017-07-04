@@ -15,6 +15,7 @@ import Touchables from './Touchables';
 import Scroll from './Scroll';
 import FlatListBasics from './FlatListBasics';
 import SectionListBasics from './SectionListBasics';
+import NetworkingBasics from './NetworkingBasics';
 
 export default class HelloWorldApp extends Component {
   render() {
@@ -50,7 +51,9 @@ export default class HelloWorldApp extends Component {
 
       // <FlatListBasics />
 
-      <SectionListBasics />
+      // <SectionListBasics />
+
+      <NetworkingBasics />
     );
   }
 }

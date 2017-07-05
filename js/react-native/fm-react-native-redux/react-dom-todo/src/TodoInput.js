@@ -15,8 +15,11 @@ export class TodoInput extends Component {
   }
 
   handleAdd() {
-    this.props.onAdd(this.state.input);
-    this.setState({ input: '' });
+    const input = this.state.input;
+    if (input.trim() !== '') {
+      this.props.onAdd(this.state.input);
+      this.setState({ input: '' });
+    }
   }
 
   render() {

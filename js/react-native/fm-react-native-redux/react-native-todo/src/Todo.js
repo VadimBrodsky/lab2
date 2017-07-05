@@ -1,44 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default class Todo extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo: [1,2,3,4],
+      todo: [],
       newTodo: '',
     };
   }
 
-  handleChange(e) {
-    const { value } = e.target;
-    this.setState({ newTodo: value });
+  handleChange(text) {
+    this.setState({ newTodo: text });
   }
 
-  handlePress(e) {
-
+  handlePress() {
+    const todo = [...this.state.todo, this.state.newTodo];
+    this.setState({ todo, newTodo: '' });
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput value={this.state.newTodo} onChange={this.handleChange.bind(this)} />
+      <View>
+        <TextInput style={{height: 40}} value={this.state.newTodo} onChangeText={this.handleChange.bind(this)} />
 
-        <TouchableHighlight onPress={this.handlePress.bind(this)}>
-          <Text>Tap me</Text>
-        </TouchableHighlight>
+        <TouchableOpacity onPress={this.handlePress.bind(this)}>
+          <Text>Create</Text>
+        </TouchableOpacity>
 
-        {this.state.todo.map((todo, i) => <Text key={i}>{todo}</Text>)}
+        <View>
+          {this.state.todo.map((todo, i) => <Text key={i}>{todo}</Text>)}
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

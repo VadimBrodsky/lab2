@@ -14,7 +14,9 @@ export class TodoInput extends Component {
     });
   }
 
-  handleAdd() {
+  handleAdd(e) {
+    e.preventDefault();
+
     const input = this.state.input;
     if (input.trim() !== '') {
       this.props.onAdd(this.state.input);
@@ -24,10 +26,10 @@ export class TodoInput extends Component {
 
   render() {
     return (
-      <div>
+      <form>
         <input type="text" placeholder="Enter Todo" onChange={this.handleInput} value={this.state.input} />
         <button onClick={this.handleAdd}>Add</button>
-      </div>
+      </form>
     );
   }
 }

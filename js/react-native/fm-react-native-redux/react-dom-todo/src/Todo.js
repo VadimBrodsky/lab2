@@ -33,7 +33,7 @@ export class Todo extends Component {
 
   render() {
     return (
-      <div style={{padding: '2em', margin: '2em'}}>
+      <div style={{margin: '1em'}}>
         <TodoInput onAdd={this.addTodo} />
         <TodoList todos={this.state.todos} onComplete={this.completeTodo} />
       </div>

@@ -5,14 +5,21 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo: [1,2,3,4]
+      todo: [1,2,3,4],
+      newTodo: '',
     };
+  }
+
+  handleChange(e) {
+    const { value } = e.target;
+    this.setState({ newTodo: value });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.todo.map(todo => <Text>{todo}</Text>)}
+        <TextInput value={this.state.newTodo} onChange={this.handleChange.bind(this)} />
+        {this.state.todo.map((todo, i) => <Text key={i}>{todo}</Text>)}
       </View>
     );
   }

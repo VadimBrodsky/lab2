@@ -5,9 +5,19 @@ export default class Todo extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo: [],
+      todos: [],
       newTodo: '',
     };
+  }
+
+  componentWillMount() {
+    fetch('http://localhost:5000/todos', {
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(todos => this.setState({todos}));
   }
 
   handleChange(text) {
@@ -15,8 +25,21 @@ export default class Todo extends React.Component {
   }
 
   handlePress() {
-    const todo = [...this.state.todo, this.state.newTodo];
-    this.setState({ todo, newTodo: '' });
+    fetch('http://localhost:5000/todos', {
+      method: 'POST',
+      body: JSON.stringify(
+      {
+        name: this.state.newTodo,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(todo => {
+        const todos = [todo, ...this.state.todos];
+        this.setState({ todos, newTodo: '' });
+      });
   }
 
   render() {
@@ -31,9 +54,9 @@ export default class Todo extends React.Component {
         </View>
 
         <View style={styles.todos}>
-          {this.state.todo.map((todo, i) => (
+          {this.state.todos.map((todo, i) => (
             <View style={styles.todo} key={i}>
-              <Text style={styles.todoText}>{todo}</Text>
+              <Text style={styles.todoText}>{todo.name}</Text>
             </View>
           ))}
         </View>

@@ -1,4 +1,4 @@
-### Bower ###
+#n Bower ###
 bower_components
 .bower-cache
 .bower-registry
@@ -40,7 +40,7 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules
+node_modules/*
 jspm_packages
 
 # Optional npm cache directory

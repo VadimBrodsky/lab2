@@ -2,7 +2,14 @@ const FETCH_POSTS = 'FETCH_POSTS';
 const FETCH_POSTS_COMPLETE = 'FETCH_POSTS_COMPLETE';
 
 const reddit = (state = [], action) => {
-  return state;
+  switch (action.type) {
+    case FETCH_POSTS:
+      return state;
+    case FETCH_POSTS_COMPLETE:
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
 export { reddit };

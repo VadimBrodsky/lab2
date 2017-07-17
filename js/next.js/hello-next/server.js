@@ -22,6 +22,12 @@ app.prepare()
       app.render(req, res, actualPage, queryParams);
     });
 
+    server.get('/news/:id', (req, res) => {
+      const actualPage = '/post-news';
+      const queryParams = { title: req.params.id };
+      app.render(req, res, actualPage, queryParams);
+    });
+
     server.get('*', (req, res) => {
       return handle(req, res);
     });

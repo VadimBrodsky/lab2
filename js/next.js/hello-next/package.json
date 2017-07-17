@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "next"
+  },
   "dependencies": {
     "next": "^2.4.7",
     "react": "^15.6.1",

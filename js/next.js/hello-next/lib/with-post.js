@@ -1,12 +1,15 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 import MyLayout from '../components/MyLayout';
 import marked from 'marked';
-import Highlight from 'react-highlight';
+
+// import Highlight from 'react-highlight';
+const Highlight = dynamic(import('react-highlight'));
 
 marked.setOptions({
   gfm: true,
   tables: true,
-  breaks: true
+  breaks: true,
 });
 
 export default function WithPost (options) {

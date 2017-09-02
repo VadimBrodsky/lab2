@@ -36,16 +36,16 @@ class ProductList extends React.Component {
     this.handleProductUpvote = this.handleProductUpvote.bind(this);
   }
   */
-  
+
   // initial state, using property initializers
   state = { products: [] };
-  
+
   // react component lifecycle method
   componentDidMount() {
     // after the call to constructor always use methods to modify state
     this.setState({ products: seedProducts });
   };
-  
+
   // arrow function, don't need to bind `this`
   handleProductUpvote = (productId) => {
     const nextProducts = this.state.products.map((product) => {
@@ -57,7 +57,7 @@ class ProductList extends React.Component {
     });
     this.setState({ products: nextProducts });
   };
-  
+
   render() {
     const productComponents = this.state.products
     .sort((a, b) => (b.votes - a.votes))
@@ -74,7 +74,7 @@ class ProductList extends React.Component {
         onVote={this.handleProductUpvote}
        />
     ));
-    
+
     return (
       <div className='ui unstackable items'>
         {productComponents}
@@ -84,28 +84,28 @@ class ProductList extends React.Component {
 };
 
 class Product extends React.Component {
-  /* 
+  /*
   constructor(props) {
     // call this first
     super(props);
-    
+
     // here we bind this to component to be used in the method
     this.handleUpVote = this.handleUpVote.bind(this);
   }
-  */ 
-  
+  */
+
   /*
   handleUpVote() {
     // this does not refer to the component, need to bind it
     this.props.onVote(this.props.id);
   }
   */
-  
+
   // Uses Property Initializers via Babel Transform Class Properties
   // Don't need to bind `this`
   // arrow function binds this implicitly
   handleUpVote = () => (this.props.onVote(this.props.id));
-  
+
   render() {
     return (
       <div className='item'>

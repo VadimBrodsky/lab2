@@ -1,4 +1,5 @@
 {
   "/api/*": "/$1",
-  "/timers/stop/:id": "/timers/:id/time"
+  "/timers/start/": "/times/",
+  "/timers/stop/": "/times/"
 }

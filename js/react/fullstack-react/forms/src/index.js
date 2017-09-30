@@ -7,7 +7,7 @@ import 'purecss/build/pure-min.css'
 
 const Page = () => {
   return (
-    <div>
+    <div style={{ padding: '1em' }}>
       <BasicButton />
       <BasicInput />
     </div>

@@ -40,7 +40,7 @@ class Field extends React.Component {
           value={this.props.value}
           onChange={this.onChange}
         />
-        <span class="pure-form-message" style={{ color: 'red' }}>{ this.state.error }</span>
+        <span className="pure-form-message" style={{ color: 'red' }}>{ this.state.error }</span>
       </div>
     );
   }
@@ -99,7 +99,7 @@ export default class BasicInput extends React.Component {
       <div>
         <h1>Sign Up Sheet</h1>
 
-        <form onSubmit={this.onFormSubmit} class="pure-form pure-form-stacked">
+        <form onSubmit={this.onFormSubmit} className="pure-form pure-form-stacked">
           <fieldset>
 
             <Field
@@ -120,7 +120,7 @@ export default class BasicInput extends React.Component {
 
           <input
             type="submit"
-            class="pure-button pure-button-primary"
+            className="pure-button pure-button-primary"
             disabled={this.validate()}
           />
           </fieldset>

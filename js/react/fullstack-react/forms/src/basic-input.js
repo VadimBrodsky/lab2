@@ -58,28 +58,36 @@ export default class BasicInput extends React.Component {
     people: [],
   };
 
-  validate = person => {
-    const errors = {};
-    if (!person.name) { errors.name = 'Name Required'; }
-    if (!person.email) { errors.email = 'Email Required'; }
-    if (person.email && !isEmail(person.email)) { errors.email = 'Invalid Email'; }
-    return errors;
+  validate = () => {
+    const person = this.state.fields;
+    const fieldErrors = this.state.fieldErrors;
+    const errMessages = Object.keys(fieldErrors).filter(k => fieldErrors[k]);
+
+    if (!person.name) { return true; }
+    if (!person.email) { return true; }
+    if (errMessages.length) { return true; }
+
+    return false;
   }
 
-  onInputChange = (evt) => {
+  onInputChange = ({ name, value, error }) => {
     const fields = this.state.fields;
-    fields[evt.target.name] = evt.target.value;
-    this.setState({ fields });
+    const fieldErrors = this.state.fieldErrors;
+
+    fields[name] = value;
+    fieldErrors[name] = error;
+
+    this.setState({ fields, fieldErrors });
   };
 
-  onFormSubmit = (evt) => {
-    const people = [...this.state.people];
+  onFormSubmit = evt => {
+    const people = this.state.people;
     const person = this.state.fields;
-    const fieldErrors = this.validate(person);
-    this.setState({ fieldErrors });
+
     evt.preventDefault();
 
-    if (Object.keys(fieldErrors).length) { return; }
+    if (this.validate()) { return; }
+
     this.setState({
       people: people.concat(person),
       fields: {name: '', email: '' },
@@ -93,32 +101,37 @@ export default class BasicInput extends React.Component {
 
         <form onSubmit={this.onFormSubmit} class="pure-form pure-form-stacked">
           <fieldset>
-            <input
+
+            <Field
               placeholder="Name"
               name="name"
               value={this.state.fields.name}
               onChange={this.onInputChange}
+              validate={val => (val ? false : 'Name Required')}
             />
-            <span class="pure-form-message" style={{ color: 'red' }}>{ this.state.fieldErrors.name }</span>
 
-            <input
+            <Field
               placeholder="Email"
               name="email"
               value={this.state.fields.email}
               onChange={this.onInputChange}
+              validate={val => (isEmail(val) ? false : 'Invalid Email')}
             />
-            <span class="pure-form-message" style={{ color: 'red' }}>{ this.state.fieldErrors.email }</span>
 
-            <input type="submit" class="pure-button pure-button-primary" />
+          <input
+            type="submit"
+            class="pure-button pure-button-primary"
+            disabled={this.validate()}
+          />
           </fieldset>
         </form>
 
         <div>
           <h3>Names</h3>
           <ul>
-            {
-              this.state.people.map(({ name, email }, i) => <li key={i}>{name} ({email})</li>)
-            }
+            { this.state.people.map(({ name, email }, i) =>
+              <li key={i}>{name} ({email})</li>
+            ) }
           </ul>
         </div>
       </div>

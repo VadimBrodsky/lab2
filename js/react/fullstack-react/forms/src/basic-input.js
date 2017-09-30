@@ -1,5 +1,10 @@
 import React from 'react';
 
+function isEmail(email) {
+  return !!email.match(/^[^@\s]+@[^@\s]+$/);
+
+}
+
 export default class BasicInput extends React.Component {
   static displayName = "basic-input";
 
@@ -8,8 +13,17 @@ export default class BasicInput extends React.Component {
       name: '',
       email: '',
     },
+    fieldErrors: {},
     people: [],
   };
+
+  validate = person => {
+    const errors = {};
+    if (!person.name) { errors.name = 'Name Required'; }
+    if (!person.email) { errors.email = 'Email Required'; }
+    if (person.email && !isEmail(person.email)) { errors.email = 'Invalid Email'; }
+    return errors;
+  }
 
   onInputChange = (evt) => {
     const fields = this.state.fields;
@@ -18,9 +32,17 @@ export default class BasicInput extends React.Component {
   };
 
   onFormSubmit = (evt) => {
-    const people = [...this.state.people, this.state.fields];
-    this.setState({ people, fields: { name: '', email: '' } });
+    const people = [...this.state.people];
+    const person = this.state.fields;
+    const fieldErrors = this.validate(person);
+    this.setState({ fieldErrors });
     evt.preventDefault();
+
+    if (Object.keys(fieldErrors).length) { return; }
+    this.setState({
+      people: people.concat(person),
+      fields: {name: '', email: '' },
+    });
   };
 
   render() {

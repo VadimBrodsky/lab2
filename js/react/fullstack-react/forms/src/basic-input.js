@@ -4,14 +4,17 @@ export default class BasicInput extends React.Component {
   static displayName = "basic-input";
 
   state = {
+    name: '',
     names: [],
   };
 
+  onNameChange = (evt) => {
+    this.setState({ name: evt.target.value });
+  }
+
   onFormSubmit = (evt) => {
-    const name = this.refs.name.value;
-    const names = [...this.state.names, name];
-    this.setState({ names });
-    this.refs.name.value = '';
+    const names = [...this.state.names, this.state.name];
+    this.setState({ names, name: '' });
     evt.preventDefault();
   }
 
@@ -21,7 +24,7 @@ export default class BasicInput extends React.Component {
         <h1>Sign Up Sheet</h1>
 
         <form onSubmit={this.onFormSubmit}>
-          <input placeholder="Name" ref="name" />
+          <input placeholder="Name" value={this.state.name} onChange={this.onNameChange} />
           <input type="submit" />
         </form>
 

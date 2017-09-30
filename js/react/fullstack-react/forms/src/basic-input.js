@@ -28,20 +28,26 @@ export default class BasicInput extends React.Component {
       <div>
         <h1>Sign Up Sheet</h1>
 
-        <form onSubmit={this.onFormSubmit}>
-          <input
-            placeholder="Name"
-            name="name"
-            value={this.state.fields.name}
-            onChange={this.onInputChange}
-          />
-          <input
-            placeholder="Email"
-            name="email"
-            value={this.state.fields.email}
-            onChange={this.onInputChange}
-          />
-          <input type="submit" />
+        <form onSubmit={this.onFormSubmit} class="pure-form pure-form-stacked">
+          <fieldset>
+            <input
+              placeholder="Name"
+              name="name"
+              value={this.state.fields.name}
+              onChange={this.onInputChange}
+            />
+            <span class="pure-form-message" style={{ color: 'red' }}>{ this.state.fieldErrors.name }</span>
+
+            <input
+              placeholder="Email"
+              name="email"
+              value={this.state.fields.email}
+              onChange={this.onInputChange}
+            />
+            <span class="pure-form-message" style={{ color: 'red' }}>{ this.state.fieldErrors.email }</span>
+
+            <input type="submit" class="pure-button pure-button-primary" />
+          </fieldset>
         </form>
 
         <div>

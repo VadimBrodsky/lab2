@@ -10,11 +10,13 @@ export default class BasicButton extends React.Component {
     return (
       <div>
         <h1>What do you think of React?</h1>
-        <button name="button-1" value="great" onClick={this.onButtonClick}>
+        <button class="pure-button" name="button-1" value="great" onClick={this.onButtonClick}>
           Great
         </button>
 
-        <button name="button-2" value="amazing" onClick={this.onButtonClick}>
+        &nbsp;
+
+        <button class="pure-button" name="button-2" value="amazing" onClick={this.onButtonClick}>
           Amazing
         </button>
       </div>

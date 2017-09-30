@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Hello = () => {
+import BasicButton from './basic-button';
+
+const Page = () => {
   return (
-    <h1>Hello World</h1>
+    <div>
+      <BasicButton />
+    </div>
   )
 }
 
-ReactDOM.render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<Page />, document.getElementById('root'));

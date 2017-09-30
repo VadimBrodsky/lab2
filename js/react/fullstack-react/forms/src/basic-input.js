@@ -1,9 +1,18 @@
 import React from 'react';
 
 export default class BasicInput extends React.Component {
+  static displayName = "basic-input";
+
+  state = {
+    names: [],
+  };
+
   onFormSubmit = (evt) => {
+    const name = this.refs.name.value;
+    const names = [...this.state.names, name];
+    this.setState({ names });
+    this.refs.name.value = '';
     evt.preventDefault();
-    console.log(this.refs.name.value);
   }
 
   render() {
@@ -15,6 +24,15 @@ export default class BasicInput extends React.Component {
           <input placeholder="Name" ref="name" />
           <input type="submit" />
         </form>
+
+        <div>
+          <h3>Names</h3>
+          <ul>
+            {
+              this.state.names.map((name, i) => <li key={i}>{name}</li>)
+            }
+          </ul>
+        </div>
       </div>
     );
   }

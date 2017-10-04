@@ -1,5 +1,6 @@
 import React from 'react';
 import Field from './field';
+import CourseSlect from './course-select';
 
 function isEmail(email) {
   return !!email.match(/^[^@\s]+@[^@\s]+$/);
@@ -24,6 +25,8 @@ export default class BasicInput extends React.Component {
 
     if (!person.name) { return true; }
     if (!person.email) { return true; }
+    if (!person.course) { return true; }
+    if (!person.department) { return true; }
     if (errMessages.length) { return true; }
 
     return false;
@@ -77,6 +80,12 @@ export default class BasicInput extends React.Component {
               validate={val => (isEmail(val) ? false : 'Invalid Email')}
             />
 
+          <CourseSlect
+            department={this.state.fields.department}
+            course={this.state.fields.course}
+            onChange={this.onInputChange}
+          />
+
           <input
             type="submit"
             className="pure-button pure-button-primary"
@@ -86,10 +95,10 @@ export default class BasicInput extends React.Component {
         </form>
 
         <div>
-          <h3>Names</h3>
+          <h3>People</h3>
           <ul>
-            { this.state.people.map(({ name, email }, i) =>
-              <li key={i}>{name} ({email})</li>
+            { this.state.people.map(({ name, email, department, course }, i) =>
+              <li key={i}>{ [ name, email, department, course ].join(' - ') }</li>
             ) }
           </ul>
         </div>

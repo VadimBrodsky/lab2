@@ -13,6 +13,8 @@ export default class BasicInput extends React.Component {
     fields: {
       name: '',
       email: '',
+      couse: null,
+      department: null,
     },
     fieldErrors: {},
     people: [],

@@ -1,10 +1,9 @@
 import React from 'react';
 import Field from './field';
 import CourseSlect from './course-select';
+import isEmail from './helpers/is-email';
+import apiClient from './helpers/local-storage-client';
 
-function isEmail(email) {
-  return !!email.match(/^[^@\s]+@[^@\s]+$/);
-}
 
 export default class BasicInput extends React.Component {
   static displayName = "basic-input";

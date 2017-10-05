@@ -12,11 +12,13 @@ export default class BasicInput extends React.Component {
     fields: {
       name: '',
       email: '',
-      couse: null,
+      course: null,
       department: null,
     },
     fieldErrors: {},
     people: [],
+    _loading: false,
+    _saveStatus: 'READY',
   };
 
   validate = () => {
@@ -40,24 +42,55 @@ export default class BasicInput extends React.Component {
     fields[name] = value;
     fieldErrors[name] = error;
 
-    this.setState({ fields, fieldErrors });
+    this.setState({ fields, fieldErrors, _saveStatus: 'READY' });
   };
 
   onFormSubmit = evt => {
-    const people = this.state.people;
     const person = this.state.fields;
 
     evt.preventDefault();
 
     if (this.validate()) { return; }
 
-    this.setState({
-      people: people.concat(person),
-      fields: {name: '', email: '' },
-    });
+    const people = [...this.state.people, person];
+
+    this.setState({ _saveStatus: 'SAVING', });
+    apiClient.savePeople(people)
+      .then(() => {
+        this.setState({
+          people,
+          fields: {
+            name: '',
+            email: '',
+            course: null,
+            department: null,
+          },
+          _saveStatus: 'SUCCESS',
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ _saveStatus: 'ERROR' });
+      });
   };
 
+  componentWillMount() {
+    this.setState({ _loading: true });
+
+    apiClient.loadPeople()
+      .then(people => this.setState({ _loading: false, people }));
+  }
+
   render() {
+    if (this.state._loading) {
+      return <img alt='loading' src='/img/loading.gif' />;
+    }
+
+    const submitAttributes = {
+      type: "submit",
+      className: "pure-button pure-button-primary",
+    };
+
     return (
       <div>
         <h1>Sign Up Sheet</h1>
@@ -87,11 +120,13 @@ export default class BasicInput extends React.Component {
             onChange={this.onInputChange}
           />
 
-          <input
-            type="submit"
-            className="pure-button pure-button-primary"
-            disabled={this.validate()}
-          />
+          {{
+            SAVING:  <input {...submitAttributes} value='Saving...' disabled />,
+            SUCCESS: <input {...submitAttributes} value='Saved!' disabled />,
+            ERROR:   <input {...submitAttributes} value='Save Failed - Retry?' disabled={this.validate()} />,
+            READY:   <input {...submitAttributes} value='Submit' disabled={this.validate()} />
+          }[this.state._saveStatus]}
+
           </fieldset>
         </form>
 

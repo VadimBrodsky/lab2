@@ -1,9 +1,11 @@
-// We populate this file in the chapter "Unit Testing"
 /* eslint-disable no-unused-vars */
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 import React from 'react';
 import FoodSearch from '../FoodSearch';
+import Client from '../Client';
+
+jest.mock('../Client');
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -12,6 +14,10 @@ describe('FoodSearch', () => {
 
   beforeEach(() => {
     wrapper = shallow(<FoodSearch />);
+  });
+
+  afterEach(() => {
+    Client.search.mockClear();
   });
 
   it('should not display the remove icon', () => {
@@ -43,6 +49,11 @@ describe('FoodSearch', () => {
     it('should display the remove icon', () => {
       expect(wrapper.find('.remove.icon').length).toBe(1);
     });
+
+    it('should call `Client.search()` with `value`', () => {
+      const invocationArgs = Client.search.mock.calls[0];
+      expect(invocationArgs[0]).toEqual(value);
+    })
 
     xdescribe('and API returns results', () => {
       beforeEach(() => {

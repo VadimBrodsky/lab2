@@ -20,6 +20,12 @@ describe('FoodSearch', () => {
     ).toBe(0);
   });
 
+  it('should display zero rows', () => {
+    expect(
+      wrapper.find('tbody td').length
+    ).toEqual(0);
+  });
+
   describe('user populates search field', () => {
     beforeEach(() => {
       // ... simulate user typing "brocc" in input

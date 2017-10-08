@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 
+const Route = ({ path, component }) => {
+  const pathname = window.location.pathname;
+  if (pathname.match(path)) {
+    return (React.createElement(component));
+  } else {
+    return null;
+  }
+};
+
 class App extends Component {
   render() {
     return (
@@ -21,6 +30,8 @@ class App extends Component {
 
         <hr />
 
+        <Route path='/atlantic' component={Atlantic} />
+        <Route path='/pacific' component={Pacific} />
       </div>
     );
   }

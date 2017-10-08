@@ -11,13 +11,15 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('FoodSearch', () => {
   let wrapper;
+  const onFoodClick = jest.fn();
 
   beforeEach(() => {
-    wrapper = shallow(<FoodSearch />);
+    wrapper = shallow(<FoodSearch onFoodClick={onFoodClick} />);
   });
 
   afterEach(() => {
     Client.search.mockClear();
+    onFoodClick.mockClear();
   });
 
   it('should not display the remove icon', () => {
@@ -98,10 +100,14 @@ describe('FoodSearch', () => {
 
       describe('then user clicks food item', () => {
         beforeEach(() => {
-          // ... simulate user clicking food item
+          const foodRow = wrapper.find('tbody tr').first();
+          foodRow.simulate('click');
         });
 
-        // ... specs
+        it('should  call prop `onFoodClick` with `food`', () => {
+          const food = foods[0];
+          expect(onFoodClick.mock.calls[0]).toEqual([ food ]);
+        });
       });
 
       describe('then user types more', () => {

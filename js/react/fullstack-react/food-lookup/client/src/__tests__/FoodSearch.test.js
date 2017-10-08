@@ -27,13 +27,24 @@ describe('FoodSearch', () => {
   });
 
   describe('user populates search field', () => {
+    const value = 'brocc';
+
     beforeEach(() => {
-      // ... simulate user typing "brocc" in input
+      const input = wrapper.find('input').first();
+      input.simulate('change', {
+        target: { value: value },
+      });
     });
 
-    // ... specs
+    it('should update the state property `searchValue`', () => {
+      expect(wrapper.state().searchValue).toEqual(value);
+    });
 
-    describe('and API returns results', () => {
+    it('should display the remove icon', () => {
+      expect(wrapper.find('.remove.icon').length).toBe(1);
+    });
+
+    xdescribe('and API returns results', () => {
       beforeEach(() => {
         // ... simulate API returning results
       });

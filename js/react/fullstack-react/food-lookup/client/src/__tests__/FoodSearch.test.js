@@ -1,11 +1,24 @@
 // We populate this file in the chapter "Unit Testing"
 /* eslint-disable no-unused-vars */
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16'
 import React from 'react';
-import FoodSearch from '../src/FoodSearch';
+import FoodSearch from '../FoodSearch';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('FoodSearch', () => {
-  // ... initial state specs
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<FoodSearch />);
+  });
+
+  it('should not display the remove icon', () => {
+    expect(
+      wrapper.find('.remove.icon').length
+    ).toBe(0);
+  });
 
   describe('user populates search field', () => {
     beforeEach(() => {

@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Switch,
 } from 'react-router-dom';
 
 /* Mini Router
@@ -67,18 +68,26 @@ const App = () => (
 
       <hr />
 
-      <Route exact={true} path='/' render={() => (
-        <h3>Welcome! Select a body of saline water above.</h3>
-      )} />
-      <Route path='/atlantic/ocean' render={() => (
-        <div>
-          <h3>Atlantic Ocean - Again!</h3>
-          <p>Also known as "The Pond."</p>
-        </div>
+      <Switch>
+        <Route exact path='/' render={() => (
+          <h3>Welcome! Select a body of saline water above.</h3>
         )} />
-      <Route path='/atlantic' component={Atlantic} />
-      <Route path='/pacific' component={Pacific} />
-      <Route path='/black-sea' component={BlackSea} />
+        <Route path='/atlantic/ocean' render={() => (
+          <div>
+            <h3>Atlantic Ocean - Again!</h3>
+            <p>Also known as "The Pond."</p>
+          </div>
+          )} />
+        <Route path='/atlantic' component={Atlantic} />
+        <Route path='/pacific' component={Pacific} />
+        <Route path='/black-sea' component={BlackSea} />
+
+        <Route render={({ location }) => (
+          <div className='ui inverted red segment'>
+            <h3>Error! No matched for <code>{location.pathname}</code></h3>
+          </div>
+        )}  />
+      </Switch>
     </div>
   </Router>
 );

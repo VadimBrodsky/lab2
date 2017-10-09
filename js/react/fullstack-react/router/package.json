@@ -14,6 +14,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "history": "^4.7.2"
+    "history": "^4.7.2",
+    "react-router": "^4.2.0"
   }
 }

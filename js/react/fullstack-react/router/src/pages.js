@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from './mini-router';
 
 export const Atlantic = () => (
   <div>
@@ -13,3 +14,36 @@ export const Pacific = () => (
     <p>Ferdinand Magellan, a Portuguese explorer, named the ocean 'mar pacifico' in 1521, which means peaceful sea.</p>
   </div>
 );
+
+export class BlackSea extends React.Component {
+  state = {
+    counter: 3,
+  };
+
+  componentDidMount() {
+    this.interval = setInterval(() => (
+      this.setState(prevState => (
+        { counter: prevState.counter - 1 }
+      ))
+    ) , 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Black Sea</h3>
+        <p>Nothing to sea here...</p>
+        <p>Redirecting in {this.state.counter}...</p>
+        {
+          (this.state.counter < 1) ? (
+            <Redirect to='/' />
+          ) : null
+        }
+      </div>
+    );
+  }
+}

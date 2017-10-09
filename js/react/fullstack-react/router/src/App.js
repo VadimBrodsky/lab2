@@ -1,5 +1,5 @@
 import React from 'react';
-import { Atlantic, Pacific } from './pages';
+import { Atlantic, Pacific, BlackSea } from './pages';
 import { Router, Route, Link } from './mini-router';
 
 const App = () => (
@@ -18,12 +18,18 @@ const App = () => (
             <code>/pacific</code>
           </Link>
         </li>
+        <li>
+          <Link to='/black-sea'>
+            <code>/black-sea</code>
+          </Link>
+        </li>
       </ul>
 
       <hr />
 
       <Route path='/atlantic' component={Atlantic} />
       <Route path='/pacific' component={Pacific} />
+      <Route path='/black-sea' component={BlackSea} />
     </div>
   </Router>
 );

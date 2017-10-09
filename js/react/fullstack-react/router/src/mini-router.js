@@ -57,3 +57,19 @@ Link.contextTypes = {
   history: PropTypes.object,
 }
 
+export class Redirect extends React.Component {
+  static contextTypes = {
+    history: PropTypes.object,
+  }
+
+  componentDidMount() {
+    const history = this.context.history;
+    const to = this.props.to;
+    history.push(to);
+  }
+
+  render() {
+    return null;
+  }
+}
+

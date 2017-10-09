@@ -1,39 +1,31 @@
-import React, { Component } from 'react';
-import { Route, Link } from './mini-router';
+import React from 'react';
 import { Atlantic, Pacific } from './pages';
+import { Router, Route, Link } from './mini-router';
 
-class App extends Component {
-  /* Using Mini Router
-  The App component will need to listen for changes
-  componentDidMount() {
-    history.listen(() => this.forceUpdate());
-  }
-  render() {
-    return (
-      <div className='ui text container'>
-        <h2 className='ui dividing header'>Which body of water?</h2>
+const App = () => (
+  <Router>
+    <div className='ui text container'>
+      <h2 className='ui dividing header'>Which body of water?</h2>
 
-        <ul>
-          <li>
-            <Link to='/atlantic'>
-              <code>/atlantic</code>
-            </Link>
-          </li>
-          <li>
-            <Link to='/pacific'>
-              <code>/pacific</code>
-            </Link>
-          </li>
-        </ul>
+      <ul>
+        <li>
+          <Link to='/atlantic'>
+            <code>/atlantic</code>
+          </Link>
+        </li>
+        <li>
+          <Link to='/pacific'>
+            <code>/pacific</code>
+          </Link>
+        </li>
+      </ul>
 
-        <hr />
+      <hr />
 
-        <Route path='/atlantic' component={Atlantic} />
-        <Route path='/pacific' component={Pacific} />
-      </div>
-    );
-  }
-  */
-}
+      <Route path='/atlantic' component={Atlantic} />
+      <Route path='/pacific' component={Pacific} />
+    </div>
+  </Router>
+);
 
 export default App;

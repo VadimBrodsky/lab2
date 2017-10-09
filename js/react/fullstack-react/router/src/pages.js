@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from './mini-router';
+// import { Redirect } from './mini-router';
+import { Redirect } from 'react-router-dom';
 
 export const Atlantic = () => (
   <div>

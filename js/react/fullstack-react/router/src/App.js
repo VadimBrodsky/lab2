@@ -1,6 +1,11 @@
 import React from 'react';
 import { Atlantic, Pacific, BlackSea } from './pages';
-import { Router, Route, Link } from './mini-router';
+// import { Router, Route, Link } from './mini-router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from 'react-router-dom';
 
 const App = () => (
   <Router>

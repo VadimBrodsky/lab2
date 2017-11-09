@@ -1,6 +1,15 @@
-const reducer = (state, action) => {
+import uuid from 'uuid';
+
+export const reducer = (state, action) => {
   if (action.type === 'ADD_MESSAGE') {
-    return { messages: state.messages.concat(action.message) };
+    const newMessage = {
+      text: action.text,
+      timestamp: Date.now(),
+      id: uuid.v4(),
+    };
+    return {
+      messages: state.messages.concat(newMessage)
+    };
   } else if (action.type === 'DELETE_MESSAGE') {
     return {
       messages: [
@@ -15,7 +24,7 @@ const reducer = (state, action) => {
   }
 };
 
-const createStore = (reducer, initialState) => {
+export const createStore = (reducer, initialState) => {
   let state = initialState;
   const listeners = [];
 
@@ -33,9 +42,4 @@ const createStore = (reducer, initialState) => {
     dispatch,
     subscribe,
   };
-};
-
-module.exports = {
-  reducer,
-  createStore,
 };

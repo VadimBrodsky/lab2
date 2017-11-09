@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { reducer, createStore } from './mini-redux';
+import { reducer } from './mini-redux';
+import { createStore } from 'redux';
 
 const initialState = { messages: [] };
 const store = createStore(reducer, initialState);

@@ -12,12 +12,9 @@ export const reducer = (state, action) => {
     };
   } else if (action.type === 'DELETE_MESSAGE') {
     return {
-      messages: [
-        ...state.messages.slice(0, action.index),
-        ...state.messages.slice(
-          action.index + 1, state.messages.length
-        ),
-      ],
+      messages: state.messages.filter((m) => (
+        m.id !== action.id
+      ))
     };
   } else {
     return state;

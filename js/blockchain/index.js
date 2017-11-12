@@ -1,6 +1,5 @@
 const shaHash = require('crypto').createHash('sha256');
 
-
 class Blockchain {
   constructor() {
     this.chain = [];
@@ -29,10 +28,14 @@ class Blockchain {
     this.currentTransactions.push({
       sender,
       recipient,
-      amount
+      amount,
     })
 
     return this.currentTransactions.length - 1;
+  }
+
+  proofOfWork(lastProof) {
+    // todo
   }
 
   static hash(block) {
@@ -41,6 +44,10 @@ class Blockchain {
 
   static lastBlock() {
     return this.chain[this.chain.length - 1];
+  }
+
+  static validProof(lastProof, proof) {
+    // todo
   }
 }
 

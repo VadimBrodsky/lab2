@@ -34,6 +34,11 @@ class Blockchain {
     return this.currentTransactions.length - 1;
   }
 
+  lastBlock() {
+    console.log(this.chain);
+    return this.chain[this.chain.length - 1];
+  }
+
   // find a number p such that hash pp contains leading 4 zeroes
   // where p is the previous proof of work
   proofOfWork(lastProof) {
@@ -48,14 +53,10 @@ class Blockchain {
     return shaHash.update(JSON.stringify(block),'utf8').digest('hex');
   }
 
-  static lastBlock() {
-    return this.chain[this.chain.length - 1];
-  }
-
   // does has contain 4 leading zeroes?
   static validProof(lastProof, proof) {
     const guess = `${lastProof}${proof}`;
-    const guessHash = shaHas.update(guess, 'utf8').digest('hex');
+    const guessHash = shaHash.update(guess, 'utf8').digest('hex');
     return guessHash.substring(0, 3) === '0000';
   }
 }

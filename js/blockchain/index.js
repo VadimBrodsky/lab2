@@ -1,54 +1,24 @@
-const shaHash = require('crypto').createHash('sha256');
+const express = require('express');
+const Blockchain = require('./blockchain');
 
-class Blockchain {
-  constructor() {
-    this.chain = [];
-    this.currentTransactions = [];
+const jsCoin = new Blockchain();
+const app = express();
 
-    // create the genesis block
-    this.newBlock({ previousHash: 1, proof: 100 });
-  }
+app.get('/mine', (req, res) => {
+  res.status(200).send('We will mine a new block');
+});
 
-  newBlock({ previousHash, proof }) {
-    const block = {
-      index: this.chain.length,
-      timestamp: new Date(),
-      transactions: this.currentTransactions,
-      proof,
-      previousHash: previousHash || this.hash(this.chain[self.chain.length - 1]),
-    };
+app.post('/transaction/new', (req, res) => {
+  res.status(200).send('We will add a new trasnaction');
+});
 
-    this.currentTransactions = [];
-    this.chain.push(block);
+app.get('/chain', (req, res) => {
+  res.status(200).json({
+    chain: jsCoin.chain,
+    length: jsCoin.chain.length,
+  })
+});
 
-    return block;
-  }
-
-  newTransaction({ sender, recipient, amount }) {
-    this.currentTransactions.push({
-      sender,
-      recipient,
-      amount,
-    })
-
-    return this.currentTransactions.length - 1;
-  }
-
-  proofOfWork(lastProof) {
-    // todo
-  }
-
-  static hash(block) {
-    return shaHash.update(JSON.stringify(block),'utf8').digest('hex');
-  }
-
-  static lastBlock() {
-    return this.chain[this.chain.length - 1];
-  }
-
-  static validProof(lastProof, proof) {
-    // todo
-  }
-}
-
-module.exports = Blockchain;
+app.listen(3000, () => {
+  console.log('Blockchain app is listening on port 3000');
+});

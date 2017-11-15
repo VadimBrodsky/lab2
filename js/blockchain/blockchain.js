@@ -1,4 +1,4 @@
-const shaHash = require('crypto').createHash('sha256');
+const crypto = require('crypto');
 
 class Blockchain {
   constructor() {
@@ -15,7 +15,7 @@ class Blockchain {
       timestamp: new Date(),
       transactions: this.currentTransactions,
       proof,
-      previousHash: previousHash || this.hash(this.chain[self.chain.length - 1]),
+      previousHash: previousHash || Blockchain.hash(this.chain[this.chain.length - 1]),
     };
 
     this.currentTransactions = [];
@@ -35,7 +35,6 @@ class Blockchain {
   }
 
   lastBlock() {
-    console.log(this.chain);
     return this.chain[this.chain.length - 1];
   }
 
@@ -50,11 +49,13 @@ class Blockchain {
   }
 
   static hash(block) {
+    const shaHash = crypto.createHash('sha256');
     return shaHash.update(JSON.stringify(block),'utf8').digest('hex');
   }
 
   // does has contain 4 leading zeroes?
   static validProof(lastProof, proof) {
+    const shaHash = crypto.createHash('sha256');
     const guess = `${lastProof}${proof}`;
     const guessHash = shaHash.update(guess, 'utf8').digest('hex');
     return guessHash.substring(0, 3) === '0000';

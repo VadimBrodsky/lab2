@@ -42,4 +42,29 @@ describe('Blockchain', () => {
       expect(jsCoin.lastBlock().previousHash).toBeDefined();
     });
   });
+
+  describe('newTransaction', () => {
+    beforeEach(() => {
+      jsCoin = new Blockchain();
+    });
+
+    it('should add the transaction into currentTransactions', () => {
+      jsCoin.newTransaction({
+        sender: 'Buffet',
+        recipient: 'Gates',
+        amount: 100,
+      });
+      expect(jsCoin.currentTransactions.length).toEqual(1);
+    });
+
+    it('shoud return return the transaction index', () => {
+      const transactionIndex = jsCoin.newTransaction({
+        sender: 'Buffet',
+        recipient: 'Gates',
+        amount: 100,
+      });
+      expect(transactionIndex).toEqual(0);
+
+    });
+  })
 });

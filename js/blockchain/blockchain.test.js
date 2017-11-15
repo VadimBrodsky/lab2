@@ -1,5 +1,13 @@
 const Blockchain = require('./blockchain');
 
+// jest.mock('crypto', () => ({
+//   createHash: () => ({
+//     update: () => ({
+//       digest: () => 'hashyMcHashFace',
+//     }),
+//   }),
+// }));
+
 describe('Blockchain', () => {
   let jsCoin;
 
@@ -64,7 +72,50 @@ describe('Blockchain', () => {
         amount: 100,
       });
       expect(transactionIndex).toEqual(0);
-
+      expect(jsCoin.currentTransactions.length).toEqual(1);
     });
-  })
+  });
+
+  describe('lastBlock', () => {
+    beforeAll(() => {
+      jsCoin = new Blockchain();
+    });
+
+    it('should return the last block ', () => {
+      jsCoin.newBlock({ previousHash: '1', proof: '101' });
+      const blockParams = {
+        previousHash: 'hashyMcHashFace',
+        proof: 'Believe me',
+      };
+      jsCoin.newBlock(blockParams);
+      expect(jsCoin.lastBlock()).toMatchObject(blockParams);
+    });
+  });
+
+  describe('proofOfWork', () => {
+  });
+
+
+  describe('hash', () => {
+    it('should return a sha256 hash of the given object', () => {
+      const hash = Blockchain.hash({ hello: 'world' });
+      expect(hash).toBeDefined();
+      expect(hash.length).toEqual(64);
+    });
+  });
+
+  describe('validProof', () => {
+    it('check if the new proof is valid', () => {
+      // var proof = 0;
+      // for (let p = 0; p < 10000000; p += 1) {
+      //   let result = Blockchain.validProof('123', p);
+      //   if (result) {
+      //     console.log(p);
+      //     break;
+      //   }
+      // }
+      const guess = Blockchain.validProof('123', '96064');
+      expect(guess).toBe(true);
+    });
+  });
 });

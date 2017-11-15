@@ -29,7 +29,7 @@ class Blockchain {
       sender,
       recipient,
       amount,
-    })
+    });
 
     return this.currentTransactions.length - 1;
   }
@@ -58,7 +58,7 @@ class Blockchain {
     const shaHash = crypto.createHash('sha256');
     const guess = `${lastProof}${proof}`;
     const guessHash = shaHash.update(guess, 'utf8').digest('hex');
-    return guessHash.substring(0, 3) === '0000';
+    return guessHash.substring(0, 4) === '0000';
   }
 }
 

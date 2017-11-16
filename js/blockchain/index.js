@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const uuid = require('uuid/v4');
 const Blockchain = require('./blockchain');
 
 const jsCoin = new Blockchain();
+const nodeIdentifier = uuid().replace(/-/g, '');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,18 +17,18 @@ app.get('/mine', (req, res) => {
 
   jsCoin.newTransaction({
     sender: 0,
-    recipient: 'node identifier',
+    recipient: nodeIdentifier,
     amount: 1,
   })
 
-  const block = jsCoin.newBlock(proof);
+  const block = jsCoin.newBlock({ proof: proof });
 
   res.status(200).json({
-    message: 'New Block Mined',
+    hash: block.previousHash,
     index: block.index,
-    transactions: block.transactions,
+    message: 'New Block Mined',
     proof: block.proof,
-    previousHash: block.previousHash,
+    transactions: block.transactions,
   });
 });
 

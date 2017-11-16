@@ -26,10 +26,10 @@ class Blockchain {
 
   newTransaction({ sender, recipient, amount }) {
     this.currentTransactions.push({
-      sender,
-      recipient,
       amount,
-    });
+      recipient,
+      sender,
+    })
 
     return this.currentTransactions.length - 1;
   }

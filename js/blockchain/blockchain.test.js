@@ -1,13 +1,5 @@
 const Blockchain = require('./blockchain');
 
-// jest.mock('crypto', () => ({
-//   createHash: () => ({
-//     update: () => ({
-//       digest: () => 'hashyMcHashFace',
-//     }),
-//   }),
-// }));
-
 describe('Blockchain', () => {
   let jsCoin;
 

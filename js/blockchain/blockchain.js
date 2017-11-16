@@ -1,9 +1,11 @@
 const crypto = require('crypto');
+const URL = require('URL');
 
 class Blockchain {
   constructor() {
     this.chain = [];
     this.currentTransactions = [];
+    this.nodes = new set();
 
     // create the genesis block
     this.newBlock({ previousHash: 1, proof: 100 });
@@ -46,6 +48,35 @@ class Blockchain {
       proof += 1;
     }
     return proof;
+  }
+
+  registerNode(address) {
+    this.nodes.add(new URL(address).host);
+  }
+
+  validChain(chain) {
+    return this.chain.every((block, index, chain) => {
+      if (index === 0) { return true; }
+
+      const lastBlock = chain[index - 1];
+
+      console.log('last block', lastBlock);
+      console.log('current block', block);
+      console.log('\n--------------\n');
+
+      if (block.previousHash !== Blockchain.hash(block)) {
+        return false;
+      }
+
+      if (!Blockchain.validProof(lastBlock.proof, block.proof)) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  resolveConflicts() {
   }
 
   static hash(block) {

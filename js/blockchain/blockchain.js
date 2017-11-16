@@ -1,11 +1,11 @@
 const crypto = require('crypto');
-const URL = require('URL');
+const URL = require('url');
 
 class Blockchain {
   constructor() {
     this.chain = [];
     this.currentTransactions = [];
-    this.nodes = new set();
+    this.nodes = new Set();
 
     // create the genesis block
     this.newBlock({ previousHash: 1, proof: 100 });
@@ -31,7 +31,7 @@ class Blockchain {
       amount,
       recipient,
       sender,
-    })
+    });
 
     return this.currentTransactions.length - 1;
   }
@@ -55,7 +55,7 @@ class Blockchain {
   }
 
   validChain(chain) {
-    return this.chain.every((block, index, chain) => {
+    return chain.every((block, index, chain) => {
       if (index === 0) { return true; }
 
       const lastBlock = chain[index - 1];

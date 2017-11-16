@@ -7,21 +7,21 @@ const jsCoin = new Blockchain();
 const nodeIdentifier = uuid().replace(/-/g, '');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/mine', (req, res) => {
   const lastBlock = jsCoin.lastBlock();
   const lastProof = lastBlock.proof;
-  proof = jsCoin.proofOfWork(lastProof);
+  const proof = jsCoin.proofOfWork(lastProof);
 
   jsCoin.newTransaction({
     sender: 0,
     recipient: nodeIdentifier,
     amount: 1,
-  })
+  });
 
-  const block = jsCoin.newBlock({ proof: proof });
+  const block = jsCoin.newBlock({ proof });
 
   res.status(200).json({
     hash: block.previousHash,
@@ -41,16 +41,16 @@ app.post('/transaction/new', (req, res) => {
   }
 
   const index = jsCoin.newTransaction({ sender,recipient, amount });
-  res.status(200).json({message: `Transaction will be added to Block ${index}`});
+  res.status(200).json({message: `Transaction will be added to Block ${jsCoin.chain.length}`});
 });
 
 app.get('/chain', (req, res) => {
   res.status(200).json({
     chain: jsCoin.chain,
     length: jsCoin.chain.length,
-  })
+  });
 });
 
-app.listen(3000, () => {
-  console.log('Blockchain app is listening on port 3000');
+app.listen(3030, () => {
+  console.log('Blockchain app is listening on port 3030');
 });

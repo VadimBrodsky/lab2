@@ -93,8 +93,15 @@ describe('Blockchain', () => {
   });
 
   describe('proofOfWork', () => {
-  });
+    beforeAll(() => {
+      jsCoin = new Blockchain();
+    });
 
+    it('should find a valid proof of work', () => {
+      const proof = jsCoin.proofOfWork('111')
+      expect(proof).toEqual(26672);
+    });
+  });
 
   describe('hash', () => {
     it('should return a sha256 hash of the given object', () => {
@@ -106,15 +113,7 @@ describe('Blockchain', () => {
 
   describe('validProof', () => {
     it('check if the new proof is valid', () => {
-      // var proof = 0;
-      // for (let p = 0; p < 10000000; p += 1) {
-      //   let result = Blockchain.validProof('123', p);
-      //   if (result) {
-      //     console.log(p);
-      //     break;
-      //   }
-      // }
-      const guess = Blockchain.validProof('123', '96064');
+      const guess = Blockchain.validProof('111', '26672');
       expect(guess).toBe(true);
     });
   });

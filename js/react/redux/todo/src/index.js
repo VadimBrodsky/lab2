@@ -19,6 +19,7 @@ const TodoApp = ({ todos }) => {
           text: input.value,
           id: nextTodoId++,
         });
+        input.value = '';
       }}>
         Add Todo
       </button>

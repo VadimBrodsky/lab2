@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import './index.css';
 import reducers from './reducers';
 
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(logger));
 let nextTodoId = 0;
 
 const TodoApp = ({ todos }) => {

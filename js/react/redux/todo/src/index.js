@@ -8,7 +8,11 @@ import reducers from './reducers';
 const store = createStore(reducers, applyMiddleware(logger));
 let nextTodoId = 0;
 
-const FilterLink = ({ filter, children }) => {
+const FilterLink = ({ filter, children, currentFilter }) => {
+  if (filter === currentFilter) {
+    return <span>{children}</span>
+  }
+
   return (
     <a href="#"
       onClick={e => {
@@ -37,10 +41,7 @@ const getVisibleTodos = (todos, filter) => {
 
 const TodoApp = ({ todos, visibilityFilter }) => {
   let input;
-  const visibleTodos = getVisibleTodos(
-    todos,
-    visibilityFilter,
-  );
+  const visibleTodos = getVisibleTodos( todos, visibilityFilter);
 
   return (
     <div>
@@ -77,12 +78,27 @@ const TodoApp = ({ todos, visibilityFilter }) => {
       </ul>
       <p>
         Show:
-        {' '}
-        <FilterLink filter='SHOW_ALL'>All</FilterLink>
-        {' '}
-        <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
-        {' '}
-        <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
+        &nbsp;
+        <FilterLink
+          filter='SHOW_ALL'
+          currentFilter={visibilityFilter}
+        >
+          All
+        </FilterLink>
+        &nbsp;
+        <FilterLink
+          filter='SHOW_ACTIVE'
+          currentFilter={visibilityFilter}
+        >
+          Active
+        </FilterLink>
+        &nbsp;
+        <FilterLink
+          filter='SHOW_COMPLETED'
+          currentFilter={visibilityFilter}
+        >
+          Completed
+        </FilterLink>
       </p>
     </div>
   );

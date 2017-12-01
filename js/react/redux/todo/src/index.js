@@ -8,8 +8,39 @@ import reducers from './reducers';
 const store = createStore(reducers, applyMiddleware(logger));
 let nextTodoId = 0;
 
-const TodoApp = ({ todos }) => {
+const FilterLink = ({ filter, children }) => {
+  return (
+    <a href="#"
+      onClick={e => {
+        e.preventDefault();
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter,
+        });
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+
+const getVisibleTodos = (todos, filter) => {
+  switch(filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed);
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed);
+  }
+}
+
+const TodoApp = ({ todos, visibilityFilter }) => {
   let input;
+  const visibleTodos = getVisibleTodos(
+    todos,
+    visibilityFilter,
+  );
 
   return (
     <div>
@@ -25,7 +56,7 @@ const TodoApp = ({ todos }) => {
         Add Todo
       </button>
       <ul>
-        {todos.map(todo =>
+        {visibleTodos.map(todo =>
           <li
             key={todo.id}
             onClick={() => {
@@ -44,6 +75,15 @@ const TodoApp = ({ todos }) => {
           </li>
         )}
       </ul>
+      <p>
+        Show:
+        {' '}
+        <FilterLink filter='SHOW_ALL'>All</FilterLink>
+        {' '}
+        <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
+        {' '}
+        <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
+      </p>
     </div>
   );
 };
@@ -51,7 +91,7 @@ const TodoApp = ({ todos }) => {
 const render = () => {
   ReactDOM.render(
     <TodoApp
-      todos={store.getState().todos}
+      {...store.getState()}
     />,
     document.getElementById('root')
   );

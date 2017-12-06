@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import './index.css';
 import reducers from './reducers';
+import TodoList from './todo-list';
 
 const store = createStore(reducers, applyMiddleware(logger));
 let nextTodoId = 0;
@@ -56,26 +57,14 @@ const TodoApp = ({ todos, visibilityFilter }) => {
       }}>
         Add Todo
       </button>
-      <ul>
-        {visibleTodos.map(todo =>
-          <li
-            key={todo.id}
-            onClick={() => {
-              store.dispatch({
-                type: 'TOGGLE_TODO',
-                id: todo.id,
-              });
-            }}
-            style={{
-              textDecoration: todo.completed ?
-              'line-through' :
-              'none',
-            }}
-          >
-            {todo.text}
-          </li>
-        )}
-      </ul>
+      <TodoList
+        todos={visibleTodos}
+        onTodoClick={id =>
+            store.dispatch({
+              type: 'TOGGLE_TODO',
+              id
+            })
+        } />
       <p>
         Show:
         &nbsp;

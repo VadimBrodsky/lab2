@@ -5,6 +5,7 @@ import logger from 'redux-logger';
 import './index.css';
 import reducers from './reducers';
 import TodoList from './todo-list';
+import AddTodo from './add-todo';
 
 const store = createStore(reducers, applyMiddleware(logger));
 let nextTodoId = 0;
@@ -46,17 +47,15 @@ const TodoApp = ({ todos, visibilityFilter }) => {
 
   return (
     <div>
-      <input ref={node => {input = node}} />
-      <button onClick={() => {
-        store.dispatch({
-          type: 'ADD_TODO',
-          text: input.value,
-          id: nextTodoId++,
-        });
-        input.value = '';
-      }}>
-        Add Todo
-      </button>
+      <AddTodo
+        onAddClick={text =>
+          store.dispatch({
+            type: 'ADD_TODO',
+            id: nextTodoId++,
+            text,
+          })
+        }
+      />
       <TodoList
         todos={visibleTodos}
         onTodoClick={id =>

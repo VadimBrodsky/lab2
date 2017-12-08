@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import './index.css';
 import reducers from './reducers';
-import TodoList from './todo-list';
+import VisibleTodoList from './visible-todo-list';
 import AddTodo from './add-todo';
 import Footer from './footer';
 
@@ -33,14 +33,7 @@ const TodoApp = ({ todos, visibilityFilter }) => (
           })
       }
     />
-    <TodoList
-      todos={getVisibleTodos( todos, visibilityFilter)}
-      onTodoClick={id =>
-          store.dispatch({
-            type: 'TOGGLE_TODO',
-            id
-          })
-      } />
+    <VisibleTodoList store={store} />
     <Footer store={store} />
   </div>
 );

@@ -3,7 +3,9 @@ import Link from './link';
 
 class FilterLink extends Component {
   componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+    this.unsubscribe = this.props.store.subscribe(
+      () => this.forceUpdate()
+    );
   }
 
   componentWillUnmount() {

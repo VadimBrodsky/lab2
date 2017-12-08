@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+
 import './index.css';
 import reducers from './reducers';
 import VisibleTodoList from './visible-todo-list';
 import AddTodo from './add-todo';
 import Footer from './footer';
 
-const store = createStore(reducers, applyMiddleware(logger));
-
-const TodoApp = () => (
+const TodoApp = ({ store }) => (
   <div>
     <AddTodo store={store} />
     <VisibleTodoList store={store} />
@@ -18,7 +17,9 @@ const TodoApp = () => (
   </div>
 );
 
+const store = createStore(reducers, applyMiddleware(logger));
+
 ReactDOM.render(
-  <TodoApp />,
+  <TodoApp store={store} />,
   document.getElementById('root')
 );

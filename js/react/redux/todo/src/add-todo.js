@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let nextTodoId = 0;
 
-const AddTodo = ({ onAddClick, store }) => {
+const AddTodo = (props, { store }) => {
   let input;
 
   return (
@@ -20,6 +21,10 @@ const AddTodo = ({ onAddClick, store }) => {
     </button>
   </div>
   );
+}
+
+AddTodo.contextTypes = {
+  store: PropTypes.object,
 }
 
 export default AddTodo;

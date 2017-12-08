@@ -8,18 +8,21 @@ import reducers from './reducers';
 import VisibleTodoList from './visible-todo-list';
 import AddTodo from './add-todo';
 import Footer from './footer';
+import Provider from './provider';
 
-const TodoApp = ({ store }) => (
+const TodoApp = () => (
   <div>
-    <AddTodo store={store} />
-    <VisibleTodoList store={store} />
-    <Footer store={store} />
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
   </div>
 );
 
 const store = createStore(reducers, applyMiddleware(logger));
 
 ReactDOM.render(
-  <TodoApp store={store} />,
+  <Provider store={store}>
+    <TodoApp/>
+  </Provider>,
   document.getElementById('root')
 );

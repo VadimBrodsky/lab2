@@ -1,5 +1,6 @@
 module.exports = {
   printWidth: 80,
-  parser: "flow",
-  trailingComma: "all",
+  parser: "babylon",
+  trailingComma: "es5",
+  singleQuote: true,
 };

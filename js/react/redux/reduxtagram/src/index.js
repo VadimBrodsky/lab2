@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
+import './style.css';
 
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 

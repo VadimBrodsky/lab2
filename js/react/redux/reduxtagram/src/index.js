@@ -12,8 +12,8 @@ const router = (
   <Router>
     <Fragment>
       <Route path="/" component={Main} />
-      <Route path="/grid" component={PhotoGrid} />
-      <Route path="/view/:postid" component={Single} />
+      <Route path="/" exact component={PhotoGrid} />
+      <Route path="/view/:postid" exact component={Single} />
     </Fragment>
   </Router>
 );

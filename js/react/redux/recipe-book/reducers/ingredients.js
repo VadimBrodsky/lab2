@@ -1,6 +1,8 @@
+import { ADD_INGREDIENT } from '../constants/action-types';
+
 const ingredientsReducer = (ingredients = [], action) => {
   switch (action.type) {
-    case 'ADD_INGREDIENT':
+    case ADD_INGREDIENT:
       const newIngredient = {
         name: action.name,
         recipe: action.recipe,

@@ -1,24 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../reducers/root';
 import logMiddleware from '../middleware/log';
-
-const initialState = {
-  recipes: [
-    {
-      name: 'Omlette',
-    },
-  ],
-  ingredients: [
-    {
-      recipe: 'Omlette',
-      name: 'Egg',
-      quantity: 2,
-    }
-  ],
-};
+import apiMiddleware from '../middleware/api';
 
 export default createStore(
   rootReducer,
-  initialState,
-  applyMiddleware(logMiddleware)
+  applyMiddleware(logMiddleware, apiMiddleware)
 );

@@ -1,4 +1,4 @@
-import { ADD_RECIPE, SET_RECIPES, FETCH_RECIPES } from '../constants/action-types';
+import { ADD_RECIPE, SET_RECIPES, API } from '../constants/action-types';
 
 const addRecipe = (name) => ({
   type: ADD_RECIPE,
@@ -11,7 +11,11 @@ const setRecipes = (data) => ({
 });
 
 const fetchRecipes = () => ({
-  type: FETCH_RECIPES
+  type: API,
+  payload: {
+    url: 'db.json',
+    success: SET_RECIPES,
+  }
 });
 
 export { addRecipe, setRecipes, fetchRecipes };

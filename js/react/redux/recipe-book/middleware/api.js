@@ -1,25 +1,40 @@
-import { FETCH_RECIPES } from '../constants/action-types';
+import { API } from '../constants/action-types';
 import { setRecipes } from '../actions/recipes';
+import { apiError, apiStart, apiDone } from '../actions/api';
 
-const URL = 'https://s3.amazonaws.com/500tech-shared/db.json';
-
-function fetchData(url, callback) {
-  fetch(url).then((response) => {
-    if(response.status !== 200) {
-      console.log(`Error fetching recipes: ${response.status}`);
-    } else {
-      response.json().then(callback);
-    }
-  }).catch((err) => console.log(`Error fetching recipe: ${err}`));
-}
+const BASE_URL = 'https://s3.amazonaws.com/500tech-shared/a';
 
 const apiMiddleware = ({dispatch}) =>
   (next) =>
     (action) => {
-      if (action.type === FETCH_RECIPES) {
-        fetchData(URL, data => dispatch(setRecipes(data)));
+      if (action.type !== API) {
+        return next(action);
       }
-      next(action);
+
+      const handleError = error => dispatch(apiError(error));
+      const { payload } = action;
+
+      dispatch(apiStart());
+
+      fetch(BASE_URL + payload.url)
+        .then(response => {
+          dispatch(apiDone());
+          if (response.status >= 300) {
+            handleError(response.status)
+          } else {
+            response.json()
+              .then(data => dispatch({
+                type: payload.success,
+                payload: data,
+              }));
+          }
+        })
+        .catch(error => {
+          dispatch(apiDone())
+          handleError(error);
+        });
     };
+
+
 
 export default apiMiddleware;

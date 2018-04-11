@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 let nextTodoId = 0;
 
-const AddTodo = (props, { store }) => {
+const AddTodo = ({ dispatch }) => {
   let input;
 
   const clickHandler = () => {
-    store.dispatch({
+    dispatch({
       type: 'ADD_TODO',
       id: nextTodoId++,
       text: input.value,
@@ -26,8 +27,11 @@ const AddTodo = (props, { store }) => {
   );
 }
 
-AddTodo.contextTypes = {
-  store: PropTypes.object,
-}
+// falsy arguments will pass on dispatch
+// and will not subscribe to the store
+const AddTodoWithDispatch = connect(
+  // null,                     // mapStateToProps
+  // dispatch => { dispatch }  // mapDispatchToProps
+)(AddTodo);
 
-export default AddTodo;
+export default AddTodoWithDispatch;

@@ -9,7 +9,21 @@ import Provider from './provider';
 import TodoApp from './components/app';
 import './index.css';
 
-const store = createStore(reducers, applyMiddleware(logger));
+const initialState = {
+  todos: [{
+    id: '0',
+    text: 'Welcome back!',
+    completed: false,
+  }]
+};
+
+const store = createStore(
+  reducers,
+  initialState,
+  applyMiddleware(logger)
+);
+
+console.log('initial state: ', store.getState());
 
 ReactDOM.render(
   <Provider store={store}>

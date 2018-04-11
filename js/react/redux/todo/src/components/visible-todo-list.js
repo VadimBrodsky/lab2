@@ -28,10 +28,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 // connect generates the container component and
 // applies props to the presentational component
-export default const VisibleTodoList = connect(
+const VisibleTodoList = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(TodoList);
+
+export default VisibleTodoList;
 
 /*
 class VisibleTodoList extends Component {

@@ -25,19 +25,23 @@ class VisibleTodoList extends Component {
     }
   }
 
+  todoClickHandler = (id) => {
+    const { store } = this.context;
+
+    store.dispatch({
+      type: 'TOGGLE_TODO',
+      id
+    });
+  }
+
   render() {
     const { store } = this.context;
     const state = store.getState();
 
     return (
       <TodoList
-        todos={
-          this.getVisibleTodos(state.todos, state.visibilityFilter)
-        }
-        onTodoClick={id => store.dispatch({
-          type: 'TOGGLE_TODO',
-          id
-        })}
+        todos={this.getVisibleTodos(state.todos, state.visibilityFilter)}
+        onTodoClick={this.todoClickHandler}
       />
     );
   }

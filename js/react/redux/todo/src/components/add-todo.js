@@ -6,17 +6,20 @@ let nextTodoId = 0;
 const AddTodo = (props, { store }) => {
   let input;
 
+  const clickHandler = () => {
+    store.dispatch({
+      type: 'ADD_TODO',
+      id: nextTodoId++,
+      text: input.value,
+    });
+
+    input.value = '';
+  };
+
   return (
     <div>
       <input ref={node => {input = node}} />
-      <button onClick={() => {
-        store.dispatch({
-          type: 'ADD_TODO',
-          id: nextTodoId++,
-          text: input.value,
-        });
-        input.value = '';
-      }}>
+      <button onClick={clickHandler}>
       Add Todo
     </button>
   </div>

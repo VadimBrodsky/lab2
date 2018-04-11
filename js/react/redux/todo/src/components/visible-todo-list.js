@@ -1,7 +1,6 @@
-// import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import TodoList from './todo-list';
+import { toggleTodo } from '../actions';
 
 const mapStateToProps = (state) => {
   const getVisibleTodos = (todos, filter) => {
@@ -23,18 +22,13 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTodoClick: (id) => dispatch({
-      type: 'TOGGLE_TODO',
-      id,
-    })
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  onTodoClick: (id) => dispatch(toggleTodo(id))
+});
 
 // connect generates the container component and
 // applies props to the presentational component
-const VisibleTodoList = connect(
+export default const VisibleTodoList = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(TodoList);
@@ -89,5 +83,3 @@ VisibleTodoList.contextTypes = {
   store: PropTypes.object,
 };
 */
-
-export default VisibleTodoList;

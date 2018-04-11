@@ -1,19 +1,12 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-let nextTodoId = 0;
+import { addTodo } from '../actions';
 
 const AddTodo = ({ dispatch }) => {
   let input;
 
   const clickHandler = () => {
-    dispatch({
-      type: 'ADD_TODO',
-      id: nextTodoId++,
-      text: input.value,
-    });
-
+    dispatch(addTodo(input.value)); 
     input.value = '';
   };
 

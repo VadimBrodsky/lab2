@@ -1,3 +1,4 @@
+// functions to calculate next state
 import { combineReducers } from 'redux';
 
 const todo = (state, action) => {

@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { Provider as ReactReduxProvider } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 // use the context api to pass store to children
@@ -19,4 +21,5 @@ Provider.childContextTypes = {
   store: PropTypes.object,
 };
 
-export default Provider;
+// export default Provider;
+export default ReactReduxProvider;

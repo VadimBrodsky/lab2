@@ -7,23 +7,23 @@ import reducers from './reducers';
 import Provider from './provider';
 
 import TodoApp from './components/app';
+import { loadState, saveState } from './localstorage';
+import throttle from 'lodash/throttle';
 import './index.css';
 
-const initialState = {
-  todos: [{
-    id: '0',
-    text: 'Welcome back!',
-    completed: false,
-  }]
-};
-
+const persistedState = loadState();
 const store = createStore(
   reducers,
-  initialState,
+  persistedState,
   applyMiddleware(logger)
 );
 
-console.log('initial state: ', store.getState());
+store.subscribe(
+  // throttle persistance for performance
+  throttle(() => saveState({
+    todos: store.getState().todos,
+  }), 1000)
+);
 
 ReactDOM.render(
   <Provider store={store}>

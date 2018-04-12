@@ -1,3 +1,7 @@
+//
+// not used anymore, replaced by filter-router-link
+//
+
 import React from 'react';
 
 const Link = ({ active, children, onClick }) => {

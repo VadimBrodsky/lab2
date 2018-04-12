@@ -1,19 +1,19 @@
 import React from 'react';
-import FilterLink from './filter-link';
+import FilterLink from './filter-router-link';
 
 const Footer = () => (
   <p>
     Show:
     &nbsp;
-    <FilterLink filter='SHOW_ALL'>
+    <FilterLink filter='all'>
       All
     </FilterLink>
     &nbsp;
-    <FilterLink filter='SHOW_ACTIVE'>
+    <FilterLink filter='active'>
       Active
     </FilterLink>
     &nbsp;
-    <FilterLink filter='SHOW_COMPLETED'>
+    <FilterLink filter='completed'>
       Completed
     </FilterLink>
   </p>

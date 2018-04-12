@@ -1,3 +1,7 @@
+//
+// not used anymore, replaced by filter-router-link
+//
+
 import { connect } from 'react-redux'
 import Link from './link';
 import { setVisibilityFilter } from '../actions';

@@ -2,36 +2,28 @@ import { connect } from 'react-redux';
 import TodoList from './todo-list';
 import { toggleTodo } from '../actions';
 
-const mapStateToProps = (state) => {
-  const getVisibleTodos = (todos, filter) => {
-    switch(filter) {
-      case 'SHOW_ALL':
-        return todos;
-      case 'SHOW_COMPLETED':
-        return todos.filter(t => t.completed);
-      case 'SHOW_ACTIVE':
-        return todos.filter(t => !t.completed);
-    }
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'all':
+      return todos;
+    case 'completed':
+      return todos.filter((t) => t.completed);
+    case 'active':
+      return todos.filter((t) => !t.completed);
   }
+};
 
-  return {
-    todos: getVisibleTodos(
-      state.todos,
-      state.visibilityFilter
-    )
-  };
-}
+const mapStateToProps = (state, ownProps) => ({
+  todos: getVisibleTodos(state.todos, ownProps.filter),
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  onTodoClick: (id) => dispatch(toggleTodo(id))
+  onTodoClick: (id) => dispatch(toggleTodo(id)),
 });
 
 // connect generates the container component and
 // applies props to the presentational component
-const VisibleTodoList = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TodoList);
+const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
 export default VisibleTodoList;
 

@@ -1,11 +1,11 @@
 // functions to calculate next state
 import { combineReducers } from 'redux';
 import todos from './todos';
-import visibilityFilter from './visibility-filter';
+// import visibilityFilter from './visibility-filter';
 
 const todoApp = combineReducers({
   todos,
-  visibilityFilter,
+  // visibilityFilter,
 });
 
 export default todoApp;

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
-      <Route exact path="/" component={TodoApp} />
+      <Route path="/:filter?" component={TodoApp} />
     </Router>
   </Provider>
 );

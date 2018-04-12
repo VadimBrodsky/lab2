@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import TodoList from './todo-list';
+import { withRouter } from 'react-router';
 import { toggleTodo } from '../actions';
+import TodoList from './todo-list';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -13,8 +14,8 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  todos: getVisibleTodos(state.todos, ownProps.filter),
+const mapStateToProps = (state, { match }) => ({
+  todos: getVisibleTodos(state.todos, match.filter || 'all'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,7 +24,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 // connect generates the container component and
 // applies props to the presentational component
-const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
+const VisibleTodoList = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(TodoList),
+);
 
 export default VisibleTodoList;
 

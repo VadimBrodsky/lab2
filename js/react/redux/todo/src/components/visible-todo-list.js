@@ -15,9 +15,12 @@ const getVisibleTodos = (todos, filter) => {
 };
 
 const mapStateToProps = (state, { match }) => ({
-  todos: getVisibleTodos(state.todos, match.filter || 'all'),
+  todos: getVisibleTodos(state.todos, match.params.filter || 'all'),
 });
 
+// we pass the same id from the click handler to the action creator
+// can use a configuration object as a short hand
+// { onTodoClick: toggleTodo }
 const mapDispatchToProps = (dispatch) => ({
   onTodoClick: (id) => dispatch(toggleTodo(id)),
 });
@@ -25,7 +28,11 @@ const mapDispatchToProps = (dispatch) => ({
 // connect generates the container component and
 // applies props to the presentational component
 const VisibleTodoList = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(TodoList),
+  connect(
+    mapStateToProps,
+    // mapDispatchToProps,
+    { onTodoClick: toggleTodo },
+  )(TodoList),
 );
 
 export default VisibleTodoList;

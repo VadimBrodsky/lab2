@@ -33,4 +33,19 @@ const todos = (state = [], action) => {
   }
 }
 
+
+// selector
+// exports that start with get, prepare the data to be displayed by the UI
+// select something from the current state
+export const getVisibleTodos = (state, filter) => {
+  switch (filter) {
+    case 'all':
+      return state;
+    case 'completed':
+      return state.filter((t) => t.completed);
+    case 'active':
+      return state.filter((t) => !t.completed);
+  }
+};
+
 export default todos;

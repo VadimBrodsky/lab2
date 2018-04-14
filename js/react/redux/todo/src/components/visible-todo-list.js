@@ -2,20 +2,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toggleTodo } from '../actions';
 import TodoList from './todo-list';
-
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case 'all':
-      return todos;
-    case 'completed':
-      return todos.filter((t) => t.completed);
-    case 'active':
-      return todos.filter((t) => !t.completed);
-  }
-};
+import { getVisibleTodos } from '../reducers';
 
 const mapStateToProps = (state, { match }) => ({
-  todos: getVisibleTodos(state.todos, match.params.filter || 'all'),
+  todos: getVisibleTodos(state, match.params.filter || 'all'),
 });
 
 // we pass the same id from the click handler to the action creator

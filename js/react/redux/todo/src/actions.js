@@ -19,6 +19,9 @@ const receiveTodos = (filter, response) => ({
   response,
 });
 
+// async action creator
+// returns a promise that returns the action
+// adds addPromiseSupportToDispatch to configure store to make it work with promises
 export const fetchTodos = (filter) =>
   api.fetchTodos(filter).then((response) => receiveTodos(filter, response));
 

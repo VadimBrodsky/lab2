@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 // import logger from 'redux-logger';
 import throttle from 'lodash/throttle';
-import { loadState, saveState } from './localstorage';
+// import { loadState, saveState } from './localstorage';
 import reducers from './reducers';
 
 const addLogginToDispatch = (store) => {
@@ -25,10 +25,12 @@ const addLogginToDispatch = (store) => {
 };
 
 const configureStore = () => {
-  const persistedState = loadState();
+  // replaced by server side storage
+  // const persistedState = loadState();
+
   const store = createStore(
     reducers,
-    persistedState,
+    // persistedState,
     devToolsEnhancer(),
     // composeWithDevTools(applyMiddleware(logger)),
   );
@@ -37,6 +39,7 @@ const configureStore = () => {
     store.dispatch = addLogginToDispatch(store);
   }
 
+  /* replaced by server side storage
   store.subscribe(
     // throttle persistance for performance
     throttle(
@@ -47,6 +50,7 @@ const configureStore = () => {
       1000,
     ),
   );
+  */
 
   return store;
 };

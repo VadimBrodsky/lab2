@@ -24,6 +24,16 @@ const addLogginToDispatch = (store) => {
   };
 };
 
+const addPromiseSupportToDispatch = (store) => {
+  const rawDispatch = store.dispatch;
+  return (action) => {
+    if (typeof action.then === 'function') {
+      return action.then(rawDispatch);
+    }
+    return rawDispatch(action);
+  };
+};
+
 const configureStore = () => {
   // replaced by server side storage
   // const persistedState = loadState();
@@ -38,6 +48,8 @@ const configureStore = () => {
   if (process.env.NODE_ENV !== 'production') {
     store.dispatch = addLogginToDispatch(store);
   }
+
+  store.dispatch = addPromiseSupportToDispatch(store)
 
   /* replaced by server side storage
   store.subscribe(

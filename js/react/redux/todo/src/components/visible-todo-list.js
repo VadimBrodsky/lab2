@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as actions from '../actions';
 import { getVisibleTodos } from '../reducers';
-import { fetchTodos } from '../api';
 import TodoList from './todo-list';
 
 // additional wrapping component that will talk to the api via lifecycle hooks
@@ -19,8 +18,8 @@ class VisibleTodoList extends Component {
   }
 
   fetchData = () => {
-    const { filter, receiveTodos } = this.props;
-    fetchTodos(this.props.filter).then((todos) => receiveTodos(filter, todos));
+    const { filter, fetchTodos } = this.props;
+    fetchTodos(filter);
   };
 
   render() {

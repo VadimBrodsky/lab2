@@ -1,12 +1,37 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toggleTodo } from '../actions';
-import TodoList from './todo-list';
 import { getVisibleTodos } from '../reducers';
+import { fetchTodos } from '../api';
+import TodoList from './todo-list';
 
-const mapStateToProps = (state, { match }) => ({
-  todos: getVisibleTodos(state, match.params.filter || 'all'),
-});
+// additional wrapping component that will talk to the api via lifecycle hooks
+class VisibleTodoList extends Component {
+  componentDidMount() {
+    fetchTodos(this.props.filter).then((todos) => console.log(this.props.filter, todos));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.filter !== prevProps.filter) {
+      fetchTodos(this.props.filter).then((todos) =>
+        console.log(this.props.filter, todos),
+      );
+    }
+  }
+
+  render() {
+    return <TodoList {...this.props} />;
+  }
+}
+
+const mapStateToProps = (state, { match }) => {
+  const filter = match.params.filter || 'all';
+  return {
+    todos: getVisibleTodos(state, filter),
+    filter,
+  };
+};
 
 // we pass the same id from the click handler to the action creator
 // can use a configuration object as a short hand
@@ -17,15 +42,15 @@ const mapDispatchToProps = (dispatch) => ({
 
 // connect generates the container component and
 // applies props to the presentational component
-const VisibleTodoList = withRouter(
+const VisibleTodoListWithRouter = withRouter(
   connect(
     mapStateToProps,
     // mapDispatchToProps,
     { onTodoClick: toggleTodo },
-  )(TodoList),
+  )(VisibleTodoList),
 );
 
-export default VisibleTodoList;
+export default VisibleTodoListWithRouter;
 
 /*
 class VisibleTodoList extends Component {

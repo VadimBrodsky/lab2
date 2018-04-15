@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { toggleTodo } from '../actions';
+import * as actions from '../actions';
 import { getVisibleTodos } from '../reducers';
 import { fetchTodos } from '../api';
 import TodoList from './todo-list';
@@ -9,19 +9,23 @@ import TodoList from './todo-list';
 // additional wrapping component that will talk to the api via lifecycle hooks
 class VisibleTodoList extends Component {
   componentDidMount() {
-    fetchTodos(this.props.filter).then((todos) => console.log(this.props.filter, todos));
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
-      fetchTodos(this.props.filter).then((todos) =>
-        console.log(this.props.filter, todos),
-      );
+      this.fetchData();
     }
   }
 
+  fetchData = () => {
+    const { filter, receiveTodos } = this.props;
+    fetchTodos(this.props.filter).then((todos) => receiveTodos(filter, todos));
+  };
+
   render() {
-    return <TodoList {...this.props} />;
+    const { toggleTodo, ...rest } = this.props;
+    return <TodoList {...rest} onTodoClick={toggleTodo} />;
   }
 }
 
@@ -36,9 +40,9 @@ const mapStateToProps = (state, { match }) => {
 // we pass the same id from the click handler to the action creator
 // can use a configuration object as a short hand
 // { onTodoClick: toggleTodo }
-const mapDispatchToProps = (dispatch) => ({
-  onTodoClick: (id) => dispatch(toggleTodo(id)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onTodoClick: (id) => dispatch(toggleTodo(id)),
+// });
 
 // connect generates the container component and
 // applies props to the presentational component
@@ -46,7 +50,8 @@ const VisibleTodoListWithRouter = withRouter(
   connect(
     mapStateToProps,
     // mapDispatchToProps,
-    { onTodoClick: toggleTodo },
+    // { onTodoClick: toggleTodo, receiveTodos },
+    actions,
   )(VisibleTodoList),
 );
 
